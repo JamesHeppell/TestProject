@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour {
 	public float autoLoadNextLevelAfter;
 
 	void Start() {
+		PlayerPrefsManager.UnlockLevel(4); //unlock first level (02a level1)
 		if (autoLoadNextLevelAfter<=0){
 			Debug.Log("Level auto load disabled, use a positive number in seconds");
 		} else {
