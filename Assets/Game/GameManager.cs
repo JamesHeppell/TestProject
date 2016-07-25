@@ -2,26 +2,47 @@
 using UnityEngine.UI;
 using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
+	public GameObject levelCompleteDisplay;
+	public Text finalScore;
 	public Text levelScoreDisplay;
 	public bool recording = true; // for recording replays
 
+	private LevelManager levelManager;
 	private GameObject starParent;
 	private RectTransform[] starRectTransforms;
-	private int numberStars;
-	private int starsCollected = 0;
+	private int numberStarsInLevel;
+	private int starsCollectedInLevel = 0;
 	
 	void Start () {
+		levelManager = FindObjectOfType<LevelManager>();
+		levelCompleteDisplay.SetActive(false);
 		starParent = GameObject.Find("Stars");
 		starRectTransforms = starParent.GetComponentsInChildren<RectTransform>();
-		numberStars = starRectTransforms.Length;
+		numberStarsInLevel = starRectTransforms.Length;
 	} 
 	
 	public void AddCollectedStar(){
-		starsCollected ++;
+		starsCollectedInLevel ++;
 	}
+
+	public void BallinFinishArea(){
+		if (starsCollectedInLevel >= 0){
+			//display level complete sign
+			//play win music
+			//unlock next level
+			//load level menu
+
+			levelCompleteDisplay.SetActive(true);
+			PlayerPrefsManager.UnlockLevel(SceneManager.GetActiveScene().buildIndex + 1);
+			levelManager.Invoke("LoadNextLevel",2f);
+
+		} 
+	}
+
 
 	void Update () {
 
@@ -35,6 +56,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void UpdateLevelScoreDisplay(){
-		levelScoreDisplay.text = starsCollected.ToString() + "/" + numberStars.ToString(); 
+		levelScoreDisplay.text = starsCollectedInLevel.ToString() + "/" + numberStarsInLevel.ToString(); 
+		finalScore.text = starsCollectedInLevel.ToString() + "/" + numberStarsInLevel.ToString(); 
 	}
 }
