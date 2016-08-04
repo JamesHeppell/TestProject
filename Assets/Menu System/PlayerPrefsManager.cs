@@ -29,6 +29,14 @@ public class PlayerPrefsManager : MonoBehaviour {
 			Debug.LogError("Trying to unlock level not in build order");
 		}
 	}
+
+	public static void LockLevel (int level){
+		if (level <= SceneManager.sceneCountInBuildSettings -1){
+			PlayerPrefs.SetInt (LEVEL_KEY + level.ToString(),0);
+		} else {
+			Debug.LogError("Trying to unlock level not in build order");
+		}
+	}
 	
 	public static bool IsLevelUnocked (int level){
 		int levelValue = PlayerPrefs.GetInt (LEVEL_KEY + level.ToString());
