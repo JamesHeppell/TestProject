@@ -26,7 +26,11 @@ public class LevelManager : MonoBehaviour {
 		Debug.Log ("Quit requested");
 		Application.Quit();
 	}
-	
+
+	public void RestartLevel(){
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+	}
+
 	public void LoadNextLevel(){
 		//Application.LoadLevel(Application.loadedLevel +1);
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);

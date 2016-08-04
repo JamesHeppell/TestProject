@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject levelCompleteDisplay;
 	public Text finalScore;
 	public Text levelScoreDisplay;
+	public Text levelNumberDisplay;
 	public bool recording = true; // for recording replays
 
 	private LevelManager levelManager;
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour {
 		starParent = GameObject.Find("Stars");
 		starRectTransforms = starParent.GetComponentsInChildren<RectTransform>();
 		numberStarsInLevel = starRectTransforms.Length;
+		int scenelevel = SceneManager.GetActiveScene().buildIndex - 3;
+		levelNumberDisplay.text = "Level " + scenelevel.ToString();
 	} 
 	
 	public void AddCollectedStar(){
