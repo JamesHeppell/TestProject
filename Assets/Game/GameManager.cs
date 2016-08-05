@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour {
 	private RectTransform[] starRectTransforms;
 	private int numberStarsInLevel;
 	private int starsCollectedInLevel = 0;
+	private Rigidbody rigidbodyball;
+	private int scenelevel;
 	
 	void Start () {
 		levelManager = FindObjectOfType<LevelManager>();
@@ -24,8 +26,12 @@ public class GameManager : MonoBehaviour {
 		starParent = GameObject.Find("Stars");
 		starRectTransforms = starParent.GetComponentsInChildren<RectTransform>();
 		numberStarsInLevel = starRectTransforms.Length;
-		int scenelevel = SceneManager.GetActiveScene().buildIndex - 3;
+		scenelevel = SceneManager.GetActiveScene().buildIndex - 3;
 		levelNumberDisplay.text = "Level " + scenelevel.ToString();
+
+		PlayerPrefsManager.SetLevelScoreMax(scenelevel,numberStarsInLevel);
+		rigidbodyball = GameObject.Find("Player").GetComponent<Rigidbody>();
+
 	} 
 	
 	public void AddCollectedStar(){
@@ -34,11 +40,10 @@ public class GameManager : MonoBehaviour {
 
 	public void BallinFinishArea(){
 		if (starsCollectedInLevel >= 0){
-			//display level complete sign
-			//play win music
-			//unlock next level
-			//load level menu
-
+			if(starsCollectedInLevel>PlayerPrefsManager.GetLevelScore(scenelevel)){
+				PlayerPrefsManager.SetLevelScore(scenelevel,starsCollectedInLevel);
+			}
+			rigidbodyball.constraints = RigidbodyConstraints.FreezeAll;
 			levelCompleteDisplay.SetActive(true);
 			PlayerPrefsManager.UnlockLevel(SceneManager.GetActiveScene().buildIndex + 1);
 			levelManager.Invoke("LoadNextLevel",2f);

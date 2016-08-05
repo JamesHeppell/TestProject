@@ -8,7 +8,8 @@ public class PlayerPrefsManager : MonoBehaviour {
 	const string LEVEL_KEY = "level_unlocked_";
 	const string HIGHSCORE_KEY = "high_score";
 	const string PLAYER_NAME_KEY = "player_name";
-	const string CURRENT_SCORE_KEY = "current_score";
+	const string LEVEL_SCORE_KEY = "level_score_";
+	const string LEVEL_SCORE_MAX_KEY = "level_score_max_";
 	
 	public static void SetMasterVolume (float volume){
 		if (volume >=0f && volume <=1f){
@@ -71,16 +72,25 @@ public class PlayerPrefsManager : MonoBehaviour {
 		return PlayerPrefs.GetString (PLAYER_NAME_KEY);
 	}
 
-	public static void SetCurrentScore (int score){
+
+	public static void SetLevelScore (int level,int score){
 		if (score >=0 && score <=300){
-			PlayerPrefs.SetInt (CURRENT_SCORE_KEY, score);
+			PlayerPrefs.SetInt (LEVEL_SCORE_KEY + level.ToString(), score);
 		} else {
 			Debug.LogError("Score out of range");
 		}
 	}
 
-	public static int GetCurrentScore (){
-		return PlayerPrefs.GetInt (CURRENT_SCORE_KEY);
+	public static int GetLevelScore (int gamelevel){
+		return PlayerPrefs.GetInt (LEVEL_SCORE_KEY + gamelevel.ToString());
+	}
+
+	public static void SetLevelScoreMax (int gamelevel,int score){
+		PlayerPrefs.SetInt (LEVEL_SCORE_MAX_KEY + gamelevel.ToString(), score);
+	}
+
+	public static int GetLevelScoreMax (int gamelevel){
+		return PlayerPrefs.GetInt (LEVEL_SCORE_MAX_KEY + gamelevel.ToString());
 	}
 
 }
