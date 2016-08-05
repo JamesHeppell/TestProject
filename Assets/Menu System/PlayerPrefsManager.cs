@@ -6,7 +6,6 @@ public class PlayerPrefsManager : MonoBehaviour {
 
 	const string MASTER_VOLUME_KEY = "master_volume";
 	const string LEVEL_KEY = "level_unlocked_";
-	const string HIGHSCORE_KEY = "high_score";
 	const string PLAYER_NAME_KEY = "player_name";
 	const string LEVEL_SCORE_KEY = "level_score_";
 	const string LEVEL_SCORE_MAX_KEY = "level_score_max_";
@@ -49,19 +48,6 @@ public class PlayerPrefsManager : MonoBehaviour {
 			Debug.LogError("Trying to query level not in build order");
 			return false;
 		}	
-	}
-
-
-	public static void SetHighScore (int score){
-		if (score >=0 && score <=300){
-			PlayerPrefs.SetInt (HIGHSCORE_KEY, score);
-		} else {
-			Debug.LogError("Score out of range");
-		}
-	}
-
-	public static int GetHighScore (){
-		return PlayerPrefs.GetInt (HIGHSCORE_KEY);
 	}
 
 	public static void SetPLayerName (string name){

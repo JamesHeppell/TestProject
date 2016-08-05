@@ -5,7 +5,6 @@ using System.Collections;
 public class OptionsController : MonoBehaviour {
 
 	public Slider volumeSlider;
-	public Text highScore;
 	public LevelManager levelManager;
 	public InputField playerName;
 	
@@ -17,8 +16,6 @@ public class OptionsController : MonoBehaviour {
 
 		volumeSlider.value = PlayerPrefsManager.GetMasterVolume();
 		playerName.text = PlayerPrefsManager.GetPlayerName();
-		//playerName.text = PlayerPrefsManager.GetPlayerName();
-		highScore.text = PlayerPrefsManager.GetHighScore().ToString();
 
 	}
 	
@@ -29,7 +26,6 @@ public class OptionsController : MonoBehaviour {
 	
 	public void SaveAndExit(){
 		PlayerPrefsManager.SetMasterVolume (volumeSlider.value);
-		PlayerPrefsManager.SetHighScore (int.Parse(highScore.text));
 		PlayerPrefsManager.SetPLayerName (playerName.text);
 
 		levelManager.LoadLevel ("01a Start");
@@ -38,7 +34,6 @@ public class OptionsController : MonoBehaviour {
 	public void SetDefaults(){
 		volumeSlider.value=0.8f;
 		playerName.text = "Unknown";
-		highScore.text ="0";
 
 	}
 }
